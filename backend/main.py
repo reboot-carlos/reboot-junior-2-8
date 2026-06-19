@@ -5,7 +5,8 @@ Application FastAPI connectée à l'API Anthropic Claude
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import anthropic
 import os
@@ -33,6 +34,7 @@ app.add_middleware(
 )
 
 MODEL = "claude-haiku-4-5-20251001"
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
 # ============================================================
 # System prompts par personnalité
@@ -155,6 +157,25 @@ async def chat(request: MessageRequest):
 @app.get("/api/personalities")
 async def get_personalities():
     return {"personalities": list(SYSTEM_PROMPTS.keys())}
+
+# ============================================================
+# Servir le frontend statique
+# ============================================================
+
+FRONTEND_DIR = os.path.join(os.path.dirname(__file__), "frontend")
+
+if os.path.exists(FRONTEND_DIR):
+    app.mount("/assets", StaticFiles(directory=os.path.join(FRONTEND_DIR, "assets")), name="assets")
+    app.mount("/css", StaticFiles(directory=os.path.join(FRONTEND_DIR, "css")), name="css")
+    app.mount("/js", StaticFiles(directory=os.path.join(FRONTEND_DIR, "js")), name="js")
+
+    @app.get("/")
+    async def serve_index():
+        return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
+
+    @app.get("/landing.html")
+    async def serve_landing():
+        return FileResponse(os.path.join(FRONTEND_DIR, "landing.html"))
 
 # ============================================================
 # Gestion des erreurs
