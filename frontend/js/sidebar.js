@@ -140,7 +140,7 @@ function startGeolocation() {
       el.textContent = `📍 ${lat}, ${lon}`;
     },
     () => {
-      el.textContent = '📍 Accès refusé';
+      el.textContent = '📍 Localisation indisponible';
     }
   );
 }
