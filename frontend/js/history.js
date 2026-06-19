@@ -159,14 +159,9 @@ function updateHistoryList() {
     item.className = `history-item ${conv.id === currentConversationId ? 'active' : ''}`;
     item.onclick = () => loadConversation(conv.id);
     const titleEl = document.createElement('div');
-    titleEl.style.cssText = 'font-weight: 600; margin-bottom: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: text;';
+    titleEl.style.cssText = 'font-weight: 600; margin-bottom: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;';
     titleEl.textContent = `${p.emoji} ${conv.title}`;
     titleEl.title = 'Double-clic pour renommer';
-
-    titleEl.addEventListener('dblclick', (e) => {
-      e.stopPropagation();
-      renameConversation(conv.id, titleEl, p.emoji);
-    });
 
     item.innerHTML = '';
     const row = document.createElement('div');
@@ -187,6 +182,16 @@ function updateHistoryList() {
     row.appendChild(dot);
     row.appendChild(info);
     item.appendChild(row);
+
+    // Timer pour distinguer simple clic et double-clic
+    let clickTimer = null;
+    item.addEventListener('click', () => {
+      clickTimer = setTimeout(() => loadConversation(conv.id), 220);
+    });
+    item.addEventListener('dblclick', (e) => {
+      clearTimeout(clickTimer);
+      renameConversation(conv.id, titleEl, p.emoji);
+    });
 
     item.addEventListener('contextmenu', (e) => {
       e.preventDefault();
