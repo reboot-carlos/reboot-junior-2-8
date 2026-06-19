@@ -96,15 +96,6 @@ class MessageResponse(BaseModel):
 # Routes
 # ============================================================
 
-@app.get("/")
-async def root():
-    return {
-        "message": "Bienvenue sur SnakeIA API",
-        "version": "2.0.0",
-        "model": MODEL,
-        "docs": "/docs"
-    }
-
 @app.get("/health")
 async def health():
     return {"status": "ok"}
@@ -170,12 +161,12 @@ if os.path.exists(FRONTEND_DIR):
     app.mount("/js", StaticFiles(directory=os.path.join(FRONTEND_DIR, "js")), name="js")
 
     @app.get("/")
-    async def serve_index():
-        return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
-
-    @app.get("/landing.html")
     async def serve_landing():
         return FileResponse(os.path.join(FRONTEND_DIR, "landing.html"))
+
+    @app.get("/chatbot")
+    async def serve_chatbot():
+        return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))
 
 # ============================================================
 # Gestion des erreurs
