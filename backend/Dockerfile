@@ -11,10 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Créer un utilisateur non-root
 RUN adduser --disabled-password --no-create-home snakeia
 USER snakeia
 
-EXPOSE 8000
-
-CMD ["python", "main.py"]
+# Railway injecte $PORT automatiquement — uvicorn doit l'utiliser directement
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
