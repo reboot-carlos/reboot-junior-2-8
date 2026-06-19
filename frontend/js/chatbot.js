@@ -95,8 +95,12 @@ async function sendMessage(event) {
       return;
     }
 
-    // Appel API
+    // Appel API avec timeout de 15 secondes
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+
     const response = await fetch(`${SERVER_URL}/api/chat`, {
+      signal: controller.signal,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -108,6 +112,7 @@ async function sendMessage(event) {
       }),
     });
 
+    clearTimeout(timeout);
     const data = await response.json();
 
     if (!response.ok) {
@@ -123,9 +128,14 @@ async function sendMessage(event) {
     addMessage('bot', escapeHtml(data.reponse || 'Pas de réponse du serveur'));
 
   } catch (error) {
+    clearTimeout(timeout);
     removeMessage(loadingId);
     console.error('Erreur:', error);
-    addMessage('bot', `Erreur de connexion : ${error.message} 😔`);
+    if (error.name === 'AbortError') {
+      addMessage('bot', 'Le serveur met trop de temps à répondre. Vérifie que le backend est en ligne. 😔');
+    } else {
+      addMessage('bot', `Erreur de connexion 😔`);
+    }
   } finally {
     sendBtn.disabled = false;
     document.getElementById('messageInput').focus();
