@@ -9,15 +9,18 @@ let sidebarOpen = getFromLocalStorage('sidebarOpen', true);
  */
 function toggleSidebar() {
   const sidebar = document.querySelector('.sidebar');
+  const arrow = document.getElementById('sidebarArrow');
   sidebarOpen = !sidebarOpen;
   saveToLocalStorage('sidebarOpen', sidebarOpen);
 
   if (sidebarOpen) {
     sidebar.classList.remove('closed');
     sidebar.classList.add('open');
+    arrow.textContent = '◀';
   } else {
     sidebar.classList.add('closed');
     sidebar.classList.remove('open');
+    arrow.textContent = '▶';
   }
 }
 
@@ -57,8 +60,12 @@ function initSidebar() {
 
   // Restaurer l'état de la sidebar
   const sidebar = document.querySelector('.sidebar');
+  const arrow = document.getElementById('sidebarArrow');
   if (!sidebarOpen) {
     sidebar.classList.add('closed');
+    arrow.textContent = '▶';
+  } else {
+    arrow.textContent = '◀';
   }
 
   // Restaurer l'onglet actif
