@@ -158,26 +158,36 @@ function updateHistoryList() {
     const item = document.createElement('div');
     item.className = `history-item ${conv.id === currentConversationId ? 'active' : ''}`;
     item.onclick = () => loadConversation(conv.id);
-    item.innerHTML = `
-      <div style="display: flex; align-items: center; gap: 0.5rem;">
-        <div style="
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: ${p.color};
-          flex-shrink: 0;
-          box-shadow: 0 0 6px ${p.color};
-        "></div>
-        <div style="text-align: left; overflow: hidden;">
-          <div style="font-weight: 600; margin-bottom: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-            ${p.emoji} ${escapeHtml(conv.title)}
-          </div>
-          <div style="font-size: 0.7rem; opacity: 0.6;">
-            ${formatConversationDate(conv.createdAt)}
-          </div>
-        </div>
-      </div>
-    `;
+    const titleEl = document.createElement('div');
+    titleEl.style.cssText = 'font-weight: 600; margin-bottom: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: text;';
+    titleEl.textContent = `${p.emoji} ${conv.title}`;
+    titleEl.title = 'Double-clic pour renommer';
+
+    titleEl.addEventListener('dblclick', (e) => {
+      e.stopPropagation();
+      renameConversation(conv.id, titleEl, p.emoji);
+    });
+
+    item.innerHTML = '';
+    const row = document.createElement('div');
+    row.style.cssText = 'display: flex; align-items: center; gap: 0.5rem;';
+
+    const dot = document.createElement('div');
+    dot.style.cssText = `width: 8px; height: 8px; border-radius: 50%; background: ${p.color}; flex-shrink: 0; box-shadow: 0 0 6px ${p.color};`;
+
+    const info = document.createElement('div');
+    info.style.cssText = 'text-align: left; overflow: hidden; flex: 1;';
+
+    const date = document.createElement('div');
+    date.style.cssText = 'font-size: 0.7rem; opacity: 0.6;';
+    date.textContent = formatConversationDate(conv.createdAt);
+
+    info.appendChild(titleEl);
+    info.appendChild(date);
+    row.appendChild(dot);
+    row.appendChild(info);
+    item.appendChild(row);
+
     item.addEventListener('contextmenu', (e) => {
       e.preventDefault();
       if (confirm('Supprimer cette conversation ?')) {
@@ -186,6 +196,51 @@ function updateHistoryList() {
     });
 
     container.appendChild(item);
+  });
+}
+
+/**
+ * Renomme une conversation via un champ inline
+ */
+function renameConversation(id, titleEl, emoji) {
+  const conv = conversations.find(c => c.id === id);
+  if (!conv) return;
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.value = conv.title;
+  input.style.cssText = `
+    width: 100%;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    padding: 2px 6px;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    outline: none;
+  `;
+
+  titleEl.replaceWith(input);
+  input.focus();
+  input.select();
+
+  const save = () => {
+    const newTitle = input.value.trim();
+    if (newTitle && newTitle !== conv.title) {
+      conv.title = newTitle;
+      saveToLocalStorage('conversations', conversations);
+    }
+    input.replaceWith(titleEl);
+    titleEl.textContent = `${emoji} ${conv.title}`;
+  };
+
+  input.addEventListener('blur', save);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') input.blur();
+    if (e.key === 'Escape') {
+      input.replaceWith(titleEl);
+    }
   });
 }
 
