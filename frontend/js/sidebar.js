@@ -98,3 +98,52 @@ function newConversationFromSidebar() {
   createNewConversation();
   switchTab('history');
 }
+
+/**
+ * Horloge et date en temps réel
+ */
+function startClock() {
+  function update() {
+    const now = new Date();
+
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    const s = String(now.getSeconds()).padStart(2, '0');
+    document.getElementById('sidebarTime').textContent = `${h}:${m}:${s}`;
+
+    const days = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+    const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+    const day = days[now.getDay()];
+    const date = String(now.getDate()).padStart(2, '0');
+    const month = months[now.getMonth()];
+    const year = now.getFullYear();
+    document.getElementById('sidebarDate').textContent = `${day} ${date} ${month} ${year}`;
+  }
+
+  update();
+  setInterval(update, 1000);
+}
+
+/**
+ * Géolocalisation
+ */
+function startGeolocation() {
+  const el = document.getElementById('sidebarLocation');
+  if (!navigator.geolocation) {
+    el.textContent = '📍 Non disponible';
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const lat = pos.coords.latitude.toFixed(4);
+      const lon = pos.coords.longitude.toFixed(4);
+      el.textContent = `📍 ${lat}, ${lon}`;
+    },
+    () => {
+      el.textContent = '📍 Accès refusé';
+    }
+  );
+}
+
+startClock();
+startGeolocation();

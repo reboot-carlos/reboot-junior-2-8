@@ -305,6 +305,44 @@
 }
 
 /* ============================================================
+   FOOTER SIDEBAR
+   ============================================================ */
+
+.sidebar-footer {
+  padding: var(--spacing-md);
+  border-top: 2px solid var(--primary);
+  background: linear-gradient(135deg, var(--primary), rgba(218, 165, 32, 0.8));
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.sidebar-time {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #000;
+  letter-spacing: 0.1em;
+  font-family: 'Courier New', monospace;
+}
+
+.sidebar-date {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.75);
+  margin-top: 0.2rem;
+}
+
+.sidebar-location {
+  font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 0.3rem;
+  word-break: break-all;
+}
+
+.sidebar.closed .sidebar-footer {
+  display: none;
+}
+
+/* ============================================================
    SCROLLBAR SIDEBAR
    ============================================================ */
 
