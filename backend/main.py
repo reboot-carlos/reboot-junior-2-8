@@ -174,7 +174,8 @@ async def global_exception_handler(request: Request, exc: Exception):
 if __name__ == "__main__":
     import uvicorn
 
-    port = int(os.getenv("SERVER_PORT", 8000))
+    # Railway injecte automatiquement $PORT, sinon fallback sur SERVER_PORT ou 8000
+    port = int(os.getenv("PORT", os.getenv("SERVER_PORT", 8000)))
     debug = os.getenv("DEBUG", "false").lower() == "true"
 
     uvicorn.run(
