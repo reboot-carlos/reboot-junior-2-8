@@ -86,23 +86,22 @@ body {
    ============================================================ */
 
 body {
-  display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
-  grid-template-rows: 1fr;
+  display: flex;
+  flex-direction: row;
   height: 100vh;
 }
 
 .sidebar {
-  grid-column: 1;
-  grid-row: 1;
+  flex-shrink: 0;
 }
 
 .main-content {
-  grid-column: 2;
-  grid-row: 1;
+  flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  min-width: 0;
+  transition: all var(--transition-normal);
 }
 
 /* ============================================================
