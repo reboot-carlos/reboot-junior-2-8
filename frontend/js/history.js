@@ -131,6 +131,14 @@ function clearHistory() {
 /**
  * Met à jour la liste d'historique dans la sidebar
  */
+const PERSONALITY_COLORS = {
+  anaconda:  { color: '#daa520', emoji: '🟢' },
+  cobra:     { color: '#ef4444', emoji: '🐍' },
+  python:    { color: '#4a90d9', emoji: '🐲' },
+  vipere:    { color: '#9333ea', emoji: '⚡' },
+  couleuvre: { color: '#fbbf24', emoji: '😄' },
+};
+
 function updateHistoryList() {
   const container = document.getElementById('historyList');
 
@@ -141,20 +149,32 @@ function updateHistoryList() {
 
   container.innerHTML = '';
 
-  // Trier par date décroissante
   const sorted = [...conversations].sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
 
   sorted.forEach(conv => {
+    const p = PERSONALITY_COLORS[conv.personality] || { color: '#daa520', emoji: '🐍' };
     const item = document.createElement('div');
     item.className = `history-item ${conv.id === currentConversationId ? 'active' : ''}`;
     item.onclick = () => loadConversation(conv.id);
     item.innerHTML = `
-      <div style="text-align: left;">
-        <div style="font-weight: 600; margin-bottom: 0.25rem;">${escapeHtml(conv.title)}</div>
-        <div style="font-size: 0.75rem; opacity: 0.7;">
-          ${formatConversationDate(conv.createdAt)}
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <div style="
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: ${p.color};
+          flex-shrink: 0;
+          box-shadow: 0 0 6px ${p.color};
+        "></div>
+        <div style="text-align: left; overflow: hidden;">
+          <div style="font-weight: 600; margin-bottom: 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+            ${p.emoji} ${escapeHtml(conv.title)}
+          </div>
+          <div style="font-size: 0.7rem; opacity: 0.6;">
+            ${formatConversationDate(conv.createdAt)}
+          </div>
         </div>
       </div>
     `;
