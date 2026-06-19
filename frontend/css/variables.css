@@ -1,0 +1,79 @@
+/* ============================================================
+   VARIABLES GLOBALES - DESIGN SYSTEM
+   ============================================================ */
+
+:root {
+  /* Thème Anaconda (défaut) */
+  --primary: #daa520;
+  --dark: #20c997;
+  --gray: #e8dcc8;
+  --white: #ffffff;
+  --bg-dark: #1f2937;
+  --bg-light: #f5f3f0;
+  --glow-primary: rgba(218, 165, 32, 0.6);
+  --glow-secondary: rgba(255, 215, 0, 0.1);
+
+  /* Espaces */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Typographie */
+  --font-main: Arial, sans-serif;
+  --font-size-xs: 0.65rem;
+  --font-size-sm: 0.85rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+
+  /* Bordures */
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+
+  /* Durées d'animation */
+  --transition-fast: 0.2s;
+  --transition-normal: 0.3s;
+  --transition-slow: 0.5s;
+
+  /* Largeurs */
+  --sidebar-width: 280px;
+  --sidebar-width-mobile: 100%;
+}
+
+/* Thèmes alternatifs */
+:root.theme-cobra {
+  --primary: #ef4444;
+  --dark: #1f2937;
+  --gray: #fee2e2;
+  --glow-primary: rgba(239, 68, 68, 0.6);
+  --glow-secondary: rgba(239, 68, 68, 0.1);
+}
+
+:root.theme-python {
+  --primary: #4a90d9;
+  --dark: #1e3a8a;
+  --gray: #e8eef5;
+  --glow-primary: rgba(74, 144, 217, 0.6);
+  --glow-secondary: rgba(74, 144, 217, 0.1);
+}
+
+:root.theme-vipere {
+  --primary: #9333ea;
+  --dark: #1e1b4b;
+  --gray: #f3e8ff;
+  --glow-primary: rgba(147, 51, 234, 0.6);
+  --glow-secondary: rgba(147, 51, 234, 0.1);
+}
+
+:root.theme-couleuvre {
+  --primary: #fbbf24;
+  --dark: #92400e;
+  --gray: #fef3c7;
+  --glow-primary: rgba(251, 191, 36, 0.6);
+  --glow-secondary: rgba(251, 191, 36, 0.1);
+}

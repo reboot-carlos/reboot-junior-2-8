@@ -1,0 +1,290 @@
+/* ============================================================
+   SIDEBAR - Styles
+   ============================================================ */
+
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(250, 240, 220, 0.95), rgba(232, 220, 200, 0.95));
+  border-right: 2px solid var(--primary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: inset -10px 0 20px rgba(218, 165, 32, 0.1);
+  transition: all var(--transition-normal);
+}
+
+.sidebar.closed {
+  width: 0;
+  border-right: none;
+  overflow: hidden;
+}
+
+/* ============================================================
+   SIDEBAR HEADER
+   ============================================================ */
+
+.sidebar-header {
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, var(--primary), rgba(218, 165, 32, 0.8));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-header h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+
+.sidebar-close {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #000;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.sidebar-close:hover {
+  transform: rotate(90deg);
+}
+
+/* ============================================================
+   SIDEBAR TABS
+   ============================================================ */
+
+.sidebar-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0;
+  flex-shrink: 0;
+  border-bottom: 2px solid var(--primary);
+}
+
+.sidebar-tab {
+  flex: 1;
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #333;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: var(--font-size-xs);
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.sidebar-tab:hover {
+  background: rgba(218, 165, 32, 0.2);
+}
+
+.sidebar-tab.active {
+  background: var(--primary);
+  border-bottom-color: var(--primary);
+  color: #000;
+  box-shadow: 0 0 10px 1px rgba(218, 165, 32, 0.3);
+}
+
+.tab-icon {
+  font-size: var(--font-size-lg);
+}
+
+.tab-label {
+  font-size: var(--font-size-xs);
+}
+
+/* ============================================================
+   SIDEBAR CONTENU
+   ============================================================ */
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-md);
+}
+
+.sidebar-section {
+  display: none;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.sidebar-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   HISTORIQUE
+   ============================================================ */
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.history-item {
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid var(--primary);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  color: #333;
+  font-size: var(--font-size-sm);
+}
+
+.history-item:hover {
+  background: var(--primary);
+  color: #000;
+  transform: translateX(5px);
+}
+
+.history-item.active {
+  background: var(--primary);
+  color: #000;
+  box-shadow: 0 0 10px 1px rgba(218, 165, 32, 0.3);
+}
+
+.empty-state {
+  text-align: center;
+  color: #999;
+  padding: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+}
+
+/* ============================================================
+   GRILLE PERSONNALITÉS
+   ============================================================ */
+
+.personality-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+}
+
+.personality-card {
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid var(--primary);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-align: center;
+  color: #333;
+}
+
+.personality-card:hover {
+  background: rgba(218, 165, 32, 0.2);
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+.personality-card.active {
+  background: var(--primary);
+  color: #000;
+  box-shadow: 0 0 15px 2px rgba(218, 165, 32, 0.4);
+}
+
+.personality-emoji {
+  font-size: var(--font-size-2xl);
+  display: block;
+  margin-bottom: var(--spacing-sm);
+}
+
+.personality-name {
+  display: block;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  margin-bottom: 0.3rem;
+}
+
+.personality-desc {
+  display: block;
+  font-size: var(--font-size-xs);
+  opacity: 0.8;
+}
+
+/* ============================================================
+   LISTE FONCTIONS
+   ============================================================ */
+
+.function-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.function-card {
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid var(--primary);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-align: center;
+  color: #333;
+}
+
+.function-card:hover {
+  background: rgba(218, 165, 32, 0.2);
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+.function-card.active {
+  background: var(--primary);
+  color: #000;
+  box-shadow: 0 0 15px 2px rgba(218, 165, 32, 0.4);
+}
+
+.function-emoji {
+  font-size: var(--font-size-xl);
+  display: block;
+  margin-bottom: var(--spacing-sm);
+}
+
+.function-name {
+  display: block;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+/* ============================================================
+   SCROLLBAR SIDEBAR
+   ============================================================ */
+
+.sidebar-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+  background: rgba(218, 165, 32, 0.1);
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(218, 165, 32, 0.8);
+}

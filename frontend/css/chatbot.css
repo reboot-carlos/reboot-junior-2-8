@@ -1,0 +1,102 @@
+/* ============================================================
+   CHATBOT - Styles supplémentaires
+   ============================================================ */
+
+.chat-container {
+  background: linear-gradient(135deg, rgba(32, 201, 151, 0.05), rgba(218, 165, 32, 0.05));
+}
+
+/* Loading state */
+.message.loading {
+  background: var(--dark);
+  border-left: 3px solid var(--primary);
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* Typing indicator */
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: bounce 1.4s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Code blocks dans les messages */
+.message code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.message pre {
+  background: rgba(0, 0, 0, 0.3);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+  margin: var(--spacing-sm) 0;
+}
+
+/* Listes */
+.message ul,
+.message ol {
+  margin-left: var(--spacing-lg);
+  margin-top: var(--spacing-sm);
+}
+
+.message li {
+  margin: var(--spacing-xs) 0;
+}
+
+/* Liens */
+.message a {
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.message.user a {
+  color: #000;
+}
+
+/* Paragraphes */
+.message p {
+  margin: var(--spacing-sm) 0;
+  line-height: 1.6;
+}
+
+.message p:first-child {
+  margin-top: 0;
+}
+
+.message p:last-child {
+  margin-bottom: 0;
+}

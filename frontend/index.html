@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnakeIA - Chatbot Intelligent</title>
+
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Configuration serveur -->
+  <div id="config" style="display:none;" data-server-url="http://localhost:8000"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <!-- Header Sidebar -->
+    <div class="sidebar-header">
+      <h2>SnakeIA</h2>
+      <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+    </div>
+
+    <!-- Onglets Sidebar -->
+    <div class="sidebar-tabs">
+      <button class="sidebar-tab active" data-tab="history" onclick="switchTab('history')">
+        <span class="tab-icon">📜</span>
+        <span class="tab-label">Historique</span>
+      </button>
+      <button class="sidebar-tab" data-tab="personality" onclick="switchTab('personality')">
+        <span class="tab-icon">🐍</span>
+        <span class="tab-label">Personnalités</span>
+      </button>
+      <button class="sidebar-tab" data-tab="function" onclick="switchTab('function')">
+        <span class="tab-icon">⚙️</span>
+        <span class="tab-label">Fonctions</span>
+      </button>
+    </div>
+
+    <!-- Contenu Sidebar -->
+    <div class="sidebar-content">
+
+      <!-- Onglet Historique -->
+      <div class="sidebar-section active" data-section="history">
+        <div class="history-list" id="historyList">
+          <p class="empty-state">Aucune conversation</p>
+        </div>
+        <button class="btn-secondary" onclick="clearHistory()" style="width: 100%; margin-top: 1rem;">
+          Effacer l'historique
+        </button>
+      </div>
+
+      <!-- Onglet Personnalités -->
+      <div class="sidebar-section" data-section="personality">
+        <div class="personality-grid" id="personalityGrid">
+          <!-- Généré par JavaScript -->
+        </div>
+      </div>
+
+      <!-- Onglet Fonctions -->
+      <div class="sidebar-section" data-section="function">
+        <div class="function-list" id="functionList">
+          <!-- Généré par JavaScript -->
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- HEADER -->
+    <header class="header">
+      <button class="btn-sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+      <div class="header-info">
+        <div class="personality-badge">
+          <span class="badge-emoji" id="headerEmoji">🟢</span>
+          <div>
+            <h1 id="headerName">Anaconda</h1>
+            <p id="headerMode">Discussion</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="landing.html" class="btn-icon" title="Accueil">🏠</a>
+      </div>
+    </header>
+
+    <!-- ZONE CHAT -->
+    <section class="chat-container">
+      <div class="chat-messages" id="chatMessages">
+        <!-- Messages générés par JavaScript -->
+      </div>
+      <div class="chat-suggestions" id="chatSuggestions">
+        <!-- Suggestions générées par JavaScript -->
+      </div>
+    </section>
+
+    <!-- INPUT FORMULAIRE -->
+    <form class="chat-input-form" onsubmit="sendMessage(event)">
+      <input
+        type="text"
+        id="messageInput"
+        class="chat-input"
+        placeholder="Écris ton message..."
+        autocomplete="off"
+      />
+      <button type="submit" class="btn-send">
+        Envoyer ➤
+      </button>
+    </form>
+
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="js/utils.js"></script>
+  <script src="js/personality.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/sidebar.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

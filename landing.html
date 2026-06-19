@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnakeIA - Votre Assistant IA Intelligent</title>
+  <style>
+    :root {
+      --primary: #daa520;
+      --dark: #20c997;
+      --gray: #e8dcc8;
+      --white: #ffffff;
+      --bg-light: #f5f3f0;
+      --glow-primary: rgba(218, 165, 32, 0.6);
+      --glow-secondary: rgba(255, 215, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--dark);
+      background-image: url('motif.svg');
+      background-size: 120vw auto;
+      background-repeat: repeat-y;
+      background-attachment: fixed;
+      background-position: center top;
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       HEADER / NAVIGATION
+       ============================================================ */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background: rgba(32, 201, 151, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px 3px rgba(218, 165, 32, 0.4);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .logo-emoji {
+      font-size: 2.5rem;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      margin-left: 2rem;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(32, 201, 151, 0.1), rgba(218, 165, 32, 0.05));
+    }
+
+    .hero-content {
+      max-width: 800px;
+      animation: slideInUp 0.8s ease-out;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 3rem 2rem;
+      border-radius: 12px;
+    }
+
+    .hero-emoji {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      animation: bounce 2s infinite;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--white));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.05em;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #000;
+      box-shadow: 0 0 20px 3px rgba(218, 165, 32, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px 5px rgba(218, 165, 32, 0.6);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: #000;
+      transform: translateY(-3px);
+    }
+
+    /* ============================================================
+       FEATURES SECTION
+       ============================================================ */
+    .features {
+      padding: 4rem 2rem;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .features-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 3rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid rgba(218, 165, 32, 0.3);
+      box-shadow: 0 0 15px 2px rgba(218, 165, 32, 0.2);
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 25px 4px rgba(218, 165, 32, 0.4);
+      border-color: rgba(218, 165, 32, 0.6);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+      color: var(--primary);
+    }
+
+    .feature-card p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       STATS SECTION
+       ============================================================ */
+    .stats {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, rgba(32, 201, 151, 0.1), rgba(218, 165, 32, 0.05));
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--gray);
+      font-size: 1rem;
+    }
+
+    /* ============================================================
+       CTA SECTION
+       ============================================================ */
+    .cta-section {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.7);
+      border-top: 2px solid var(--primary);
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      background: rgba(32, 201, 151, 0.95);
+      padding: 2rem;
+      text-align: center;
+      border-top: 2px solid var(--primary);
+      box-shadow: 0 0 20px 3px rgba(218, 165, 32, 0.4);
+    }
+
+    footer p {
+      color: var(--white);
+      margin: 0.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .footer-links {
+      margin-top: 1rem;
+    }
+
+    .footer-links a {
+      color: var(--primary);
+      text-decoration: none;
+      margin: 0 1rem;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    /* ============================================================
+       ANIMATIONS
+       ============================================================ */
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        box-shadow: 0 0 20px 3px var(--glow-primary), inset 0 0 20px 1px var(--glow-secondary);
+      }
+      50% {
+        box-shadow: 0 0 30px 5px var(--glow-primary), inset 0 0 30px 2px var(--glow-secondary);
+      }
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav a {
+        margin-left: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .hero-emoji {
+        font-size: 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header>
+    <div class="logo">
+      <span class="logo-emoji">🐍</span>
+      <span>SnakeIA</span>
+    </div>
+    <nav>
+      <a href="#features">Fonctionnalités</a>
+      <a href="#stats">Statistiques</a>
+      <a href="index.html">Chatbot</a>
+    </nav>
+  </header>
+
+  <!-- ============================================================
+       HERO SECTION
+       ============================================================ -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-emoji">🐍</div>
+      <h1>Bienvenue sur SnakeIA</h1>
+      <p>Votre assistant IA intelligent, rapide et fiable. Posez vos questions et obtenez des réponses instantanées 24h/24, 7j/7.</p>
+      <div class="cta-buttons">
+        <a href="index.html" class="btn btn-primary">🚀 Lancer le Chatbot</a>
+        <a href="#features" class="btn btn-secondary">📖 En Savoir Plus</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURES SECTION
+       ============================================================ -->
+  <section class="features" id="features">
+    <div class="features-container">
+      <h2 class="section-title">Pourquoi Choisir SnakeIA ?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Réponses Instantanées</h3>
+          <p>Obtenez des réponses rapides et précises à vos questions en quelques secondes.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <h3>IA Intelligente</h3>
+          <p>Technologie d'IA avancée capable de comprendre et répondre à des questions complexes.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>Interface Moderne</h3>
+          <p>Design élégant et intuitif pour une expérience utilisateur optimale.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Sécurisé</h3>
+          <p>Vos données sont protégées avec les meilleures pratiques de sécurité.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌍</div>
+          <h3>Disponible 24/7</h3>
+          <p>Accédez à SnakeIA à tout moment, de n'importe où dans le monde.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Personnalisable</h3>
+          <p>Changez le nom de votre assistant et choisissez parmi plusieurs thèmes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATS SECTION
+       ============================================================ -->
+  <section class="stats" id="stats">
+    <div class="stats-container">
+      <div class="stat-item">
+        <div class="stat-number">10K+</div>
+        <div class="stat-label">Utilisateurs Actifs</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Questions Traitées</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">99%</div>
+        <div class="stat-label">Taux de Satisfaction</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">&lt;1s</div>
+        <div class="stat-label">Temps de Réponse</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA SECTION
+       ============================================================ -->
+  <section class="cta-section">
+    <h2>Prêt à Commencer ?</h2>
+    <p>Rejoignez des milliers d'utilisateurs satisfaits et découvrez la puissance de SnakeIA dès maintenant.</p>
+    <a href="index.html" class="btn btn-primary">Accéder au Chatbot 🚀</a>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <p>&copy; 2026 SnakeIA - Tous droits réservés.</p>
+    <p>Créé avec 💚 par RebootJR</p>
+    <div class="footer-links">
+      <a href="#">Conditions d'utilisation</a>
+      <a href="#">Politique de confidentialité</a>
+      <a href="#">Nous Contacter</a>
+    </div>
+  </footer>
+
+</body>
+</html>
